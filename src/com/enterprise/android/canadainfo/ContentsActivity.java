@@ -14,6 +14,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -96,6 +99,9 @@ public class ContentsActivity extends ActionBarActivity {
 		@Override
 		protected String doInBackground(Void... params) {
 
+			if (!isNetworkAvailable()) {
+				return null;
+			}
 			return getContents();
 		}
 
@@ -116,10 +122,12 @@ public class ContentsActivity extends ActionBarActivity {
 			} else {
 
 				mStatusView.setText(R.string.unabletodownload);
-				Log.d("json file", "invalid...");
+				Log.d("json file", "invalid..." + mRefershMenuitem);
 			}
 			if (mRefershMenuitem != null) {
 				mRefershMenuitem.setActionView(null);
+			} else {
+
 			}
 			super.onPostExecute(result);
 		}
@@ -219,6 +227,12 @@ public class ContentsActivity extends ActionBarActivity {
 			return result;
 
 		}
+	}
+
+	public boolean isNetworkAvailable() {
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo nwInfo = cm.getActiveNetworkInfo();
+		return nwInfo != null && nwInfo.isConnectedOrConnecting();
 	}
 
 }
