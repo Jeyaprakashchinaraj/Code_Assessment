@@ -30,6 +30,10 @@ import android.widget.TextView;
 import com.woozzu.android.widget.RefreshableListView;
 import com.woozzu.android.widget.RefreshableListView.OnRefreshListener;
 
+/**
+ * @author Jey 
+ * class to list the contents from json.
+ */
 public class ContentsActivity extends ActionBarActivity {
 
 	private RefreshableListView mListView = null;
@@ -88,13 +92,10 @@ public class ContentsActivity extends ActionBarActivity {
 		}
 	}
 
-	class ContentItems {
-		String title = null;
-		String describtion = null;
-		String imagHrf = null;
-	}
-
-	class JsonDownloader extends AsyncTask<Void, Void, String> {
+	/*
+	 * Async class to download content from given url
+	 */
+	private class JsonDownloader extends AsyncTask<Void, Void, String> {
 
 		@Override
 		protected String doInBackground(Void... params) {
@@ -122,7 +123,7 @@ public class ContentsActivity extends ActionBarActivity {
 			} else {
 
 				mStatusView.setText(R.string.unabletodownload);
-				Log.d("json file", "invalid..." + mRefershMenuitem);
+				
 			}
 			if (mRefershMenuitem != null) {
 				mRefershMenuitem.setActionView(null);
@@ -132,6 +133,11 @@ public class ContentsActivity extends ActionBarActivity {
 			super.onPostExecute(result);
 		}
 
+		/*
+		 * Method to Parse Json from string
+		 * 
+		 * @ Param : JsonString
+		 */
 		private void parseResponse(String serverresponse) {
 			mlistItems = new ArrayList<>();
 			try {
@@ -179,6 +185,9 @@ public class ContentsActivity extends ActionBarActivity {
 
 		}
 
+		/*
+		 * Method to download json contents from given URL
+		 */
 		private String getContents() {
 
 			InputStream is = null;
@@ -224,6 +233,11 @@ public class ContentsActivity extends ActionBarActivity {
 			return null;
 		}
 
+		/*
+		 * Method to convert stream bytes to string
+		 * 
+		 * @ Param: InputStream
+		 */
 		private String convertStreamToString(InputStream inputStream)
 				throws IOException {
 			BufferedReader bufferedReader = new BufferedReader(
@@ -239,6 +253,18 @@ public class ContentsActivity extends ActionBarActivity {
 		}
 	}
 
+	/*
+	 * Helper class for json parsing
+	 */
+	class ContentItems {
+		String title = null;
+		String describtion = null;
+		String imagHrf = null;
+	}
+
+	/*
+	 * Method to detect network availability
+	 */
 	public boolean isNetworkAvailable() {
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo nwInfo = cm.getActiveNetworkInfo();
