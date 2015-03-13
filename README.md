@@ -17,10 +17,10 @@ Create an Android app which:
 
 Depentencies/prerequisites  : 
 
-Include appcombackv7 as lib project
+Include appcombackv7 as lib project,
 jdk 1.7 with android ADT 22
 
-
+******************************
 Note****
 
 Images are downloaded from various servers with various dimention, dynamic sizing gives odd look. hence the images are scaled to 
