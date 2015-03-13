@@ -24,7 +24,7 @@ jdk 1.7 with android ADT 22
 Note****
 
 Images are downloaded from various servers with various dimention, dynamic sizing gives odd look. hence the images are scaled to 
-100x100 px.
+100x100 px and description alined o center vertical. it might give some blank space.
 
 
 
