@@ -27,6 +27,8 @@ public class LazyImageLoader {
 			SoftReference<Bitmap> softReference = iconCache.get(imageUrl);
 			Bitmap drawable = softReference.get();
 			if (drawable != null) {
+
+			
 				return drawable;
 			}
 		}

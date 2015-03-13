@@ -56,31 +56,45 @@ class ContentAdaptor extends ArrayAdapter<ContentItems> {
 		viewHolder.desc.setText(item.describtion);
 		viewHolder.icon.setImageBitmap(null);
 		// Dynamicallay finding textview height
-		viewHolder.desc
-				.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+		// viewHolder.desc
+		// .addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+		//
+		// String url = item.imagHrf;
+		//
+		// @Override
+		// public void onLayoutChange(View v, int left, int top,
+		// int right, int bottom, int oldLeft, int oldTop,
+		// int oldRight, int oldBottom) {
+		// // TODO Auto-generated method stub
+		// // getting "null" as value
+		// if (url != null && !url.equals("null")) {
+		// Bitmap cachedImage = asyncImageLoader.loadDrawable(
+		// url, new ImageCallback() {
+		// public void imageLoaded(
+		// Bitmap imageDrawable,
+		// String imageUrl) {
+		// viewHolder.icon
+		// .setImageBitmap(imageDrawable);
+		// }
+		// }, bottom);
+		// viewHolder.icon.setImageBitmap(cachedImage);
+		// }
+		// }
+		// });
 
-					String url = item.imagHrf;
-
-					@Override
-					public void onLayoutChange(View v, int left, int top,
-							int right, int bottom, int oldLeft, int oldTop,
-							int oldRight, int oldBottom) {
-						// TODO Auto-generated method stub
-						// getting "null" as value
-						if (url != null && !url.equals("null")) {
-							Bitmap cachedImage = asyncImageLoader.loadDrawable(
-									url, new ImageCallback() {
-										public void imageLoaded(
-												Bitmap imageDrawable,
-												String imageUrl) {
-											viewHolder.icon
-													.setImageBitmap(imageDrawable);
-										}
-									}, bottom);
-							viewHolder.icon.setImageBitmap(cachedImage);
+		String url = item.imagHrf;
+		if (url != null && !url.equals("null")) {
+			Bitmap cachedImage = asyncImageLoader.loadDrawable(url,
+					new ImageCallback() {
+						public void imageLoaded(Bitmap imageDrawable,
+								String imageUrl) {
+							
+							viewHolder.icon.setImageBitmap(imageDrawable);
 						}
-					}
-				});
+					}, 100);
+			viewHolder.icon.setImageBitmap(cachedImage);
+		}
+		
 
 		return convertView;
 	}
