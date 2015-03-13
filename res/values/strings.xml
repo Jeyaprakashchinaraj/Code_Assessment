@@ -4,8 +4,8 @@
     <string name="app_name">Canada</string>
     <string name="action_settings">Settings</string>
     <string name="action_ref">Refersh</string>
-    <string name="downloading">Downloading content...</string>
-    <string name="updating">Updating content...</string>
+    <string name="downloading">Downloading content</string>
+    <string name="updating">Updating content</string>
     <string name="noinfo">Inofrmation not available</string>
     <string name="unabletodownload">Unable to download content please check your network</string>
     <string name="tag_title">title</string>
@@ -13,5 +13,7 @@
     <string name="tag_url">imageHref</string>
     <string name="tag_rows">rows</string>
     <string name="jsonUrl"> https://dl.dropboxusercontent.com/u/746330/facts.json</string>
+    <string name="pulldown">Pull down to update</string>
+    
 
 </resources>

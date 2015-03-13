@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +40,8 @@ class ContentAdaptor extends ArrayAdapter<ContentItems> {
 			viewHolder.title = (TextView) convertView.findViewById(R.id.title);
 			viewHolder.desc = (TextView) convertView
 					.findViewById(R.id.description);
-			viewHolder.icon = (ImageView) convertView.findViewById(R.id.image);
+			viewHolder.icon = (ImageView) convertView
+					.findViewById(R.id.imageicon);
 			convertView.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
@@ -54,47 +54,48 @@ class ContentAdaptor extends ArrayAdapter<ContentItems> {
 		}
 
 		viewHolder.desc.setText(item.describtion);
+		// reset image to avoid repaint issue.
 		viewHolder.icon.setImageBitmap(null);
-		// Dynamicallay finding textview height
-		// viewHolder.desc
-		// .addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-		//
-		// String url = item.imagHrf;
-		//
-		// @Override
-		// public void onLayoutChange(View v, int left, int top,
-		// int right, int bottom, int oldLeft, int oldTop,
-		// int oldRight, int oldBottom) {
-		// // TODO Auto-generated method stub
-		// // getting "null" as value
-		// if (url != null && !url.equals("null")) {
-		// Bitmap cachedImage = asyncImageLoader.loadDrawable(
-		// url, new ImageCallback() {
-		// public void imageLoaded(
-		// Bitmap imageDrawable,
-		// String imageUrl) {
-		// viewHolder.icon
-		// .setImageBitmap(imageDrawable);
-		// }
-		// }, bottom);
-		// viewHolder.icon.setImageBitmap(cachedImage);
-		// }
-		// }
-		// });
 
+		// Dynamicallay finding textview height
+		/*viewHolder.desc
+				.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+
+					String url = item.imagHrf;
+
+					@Override
+					public void onLayoutChange(View v, int left, int top,
+							int right, int bottom, int oldLeft, int oldTop,
+							int oldRight, int oldBottom) {
+						// TODO Auto-generated method stub
+						// getting "null" as value
+						if (url != null && !url.equals("null")) {
+							Bitmap cachedImage = asyncImageLoader.loadDrawable(
+									url, new ImageCallback() {
+										public void imageLoaded(
+												Bitmap imageDrawable,
+												String imageUrl) {
+											viewHolder.icon
+													.setImageBitmap(imageDrawable);
+										}
+									}, bottom);
+							viewHolder.icon.setImageBitmap(cachedImage);
+						}
+					}
+				});
+*/
 		String url = item.imagHrf;
 		if (url != null && !url.equals("null")) {
 			Bitmap cachedImage = asyncImageLoader.loadDrawable(url,
 					new ImageCallback() {
 						public void imageLoaded(Bitmap imageDrawable,
 								String imageUrl) {
-							
+
 							viewHolder.icon.setImageBitmap(imageDrawable);
 						}
 					}, 100);
 			viewHolder.icon.setImageBitmap(cachedImage);
 		}
-		
 
 		return convertView;
 	}

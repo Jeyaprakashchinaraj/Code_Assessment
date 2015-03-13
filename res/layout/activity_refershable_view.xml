@@ -30,8 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginLeft="15dp"
-            android:text="Pull down to update"
-            android:textSize="15dp" />
+            android:text="@string/pulldown"
+            android:textSize="15sp" />
     </RelativeLayout>
 
 </LinearLayout>

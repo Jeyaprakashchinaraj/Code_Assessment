@@ -140,7 +140,7 @@ public class ContentsActivity extends ActionBarActivity {
 
 				String title = response.getString(getResources().getString(
 						R.string.tag_title));
-
+				// Setting action bar title
 				if (title != null) {
 					setTitle(title);
 				}
@@ -158,6 +158,7 @@ public class ContentsActivity extends ActionBarActivity {
 					item.imagHrf = obj.getString(getResources().getString(
 							R.string.tag_url));
 
+					// response contains "null" string
 					if (item.title != null && !item.title.equals("null")
 							&& item.describtion != null
 							&& !item.describtion.equals("null")) {
@@ -206,9 +207,14 @@ public class ContentsActivity extends ActionBarActivity {
 					return convertStreamToString(is);
 
 				} finally {
-
-					// is.close();
-					// conn.disconnect();
+					if (is != null) {
+						is.close();
+						is = null;
+					}
+					if (conn != null) {
+						conn.disconnect();
+						conn = null;
+					}
 				}
 
 			} catch (UnknownHostException e1) {
