@@ -158,7 +158,11 @@ public class ContentsActivity extends ActionBarActivity {
 					item.imagHrf = obj.getString(getResources().getString(
 							R.string.tag_url));
 
-					mlistItems.add(item);
+					if (item.title != null && !item.title.equals("null")
+							&& item.describtion != null
+							&& !item.describtion.equals("null")) {
+						mlistItems.add(item);
+					}
 				}
 
 				mListView.setAdapter(new ContentAdaptor(ContentsActivity.this,
