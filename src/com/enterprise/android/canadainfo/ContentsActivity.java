@@ -27,23 +27,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.cognizant.android.canadainfo.model.ContentItems;
+
 import com.woozzu.android.widget.RefreshableListView;
 import com.woozzu.android.widget.RefreshableListView.OnRefreshListener;
 
 /**
- * @author Jey 
- * class to list the contents from json.
+ * This app is responsible to display contents in a list view.
  */
 public class ContentsActivity extends ActionBarActivity {
 
 	private RefreshableListView mListView = null;
 	private ArrayList<ContentItems> mlistItems = null;
 	private TextView mStatusView = null;
-	private MenuItem mRefershMenuitem = null;
+	private MenuItem mRefreshMenuitem = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_contents);
 
@@ -56,7 +57,7 @@ public class ContentsActivity extends ActionBarActivity {
 
 			@Override
 			public void onRefresh(RefreshableListView listView) {
-				// TODO Auto-generated method stub
+
 				new JsonDownloader().execute();
 
 			}
@@ -69,9 +70,9 @@ public class ContentsActivity extends ActionBarActivity {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.contents, menu);
 		// to enable menu animation
-		mRefershMenuitem = menu.findItem(R.id.action_refersh);
-		if (mRefershMenuitem != null) {
-			mRefershMenuitem.setActionView(R.layout.refersh_action_layout);
+		mRefreshMenuitem = menu.findItem(R.id.action_refersh);
+		if (mRefreshMenuitem != null) {
+			mRefreshMenuitem.setActionView(R.layout.refersh_action_layout);
 		}
 		return super.onCreateOptionsMenu(menu);
 	}
@@ -81,8 +82,8 @@ public class ContentsActivity extends ActionBarActivity {
 		// Handle presses on the action bar items
 		switch (item.getItemId()) {
 		case R.id.action_refersh:
-			if (mRefershMenuitem != null) {
-				mRefershMenuitem.setActionView(R.layout.refersh_action_layout);
+			if (mRefreshMenuitem != null) {
+				mRefreshMenuitem.setActionView(R.layout.refersh_action_layout);
 			}
 			new JsonDownloader().execute();
 			return true;
@@ -103,6 +104,7 @@ public class ContentsActivity extends ActionBarActivity {
 			if (!isNetworkAvailable()) {
 				return null;
 			}
+
 			return getContents();
 		}
 
@@ -123,10 +125,10 @@ public class ContentsActivity extends ActionBarActivity {
 			} else {
 
 				mStatusView.setText(R.string.unabletodownload);
-				
+
 			}
-			if (mRefershMenuitem != null) {
-				mRefershMenuitem.setActionView(null);
+			if (mRefreshMenuitem != null) {
+				mRefreshMenuitem.setActionView(null);
 			} else {
 
 			}
@@ -226,9 +228,12 @@ public class ContentsActivity extends ActionBarActivity {
 					}
 				}
 
-			} catch (UnknownHostException e1) {
+			} catch (UnknownHostException e) {
+				Log.e(ContentsActivity.class.getName(), "" + e.toString());
 			} catch (MalformedURLException e) {
+				Log.e(ContentsActivity.class.getName(), "" + e.toString());
 			} catch (IOException e) {
+				Log.e(ContentsActivity.class.getName(), "" + e.toString());
 			}
 			return null;
 		}
@@ -251,15 +256,6 @@ public class ContentsActivity extends ActionBarActivity {
 			return result;
 
 		}
-	}
-
-	/*
-	 * Helper class for json parsing
-	 */
-	class ContentItems {
-		String title = null;
-		String describtion = null;
-		String imagHrf = null;
 	}
 
 	/*

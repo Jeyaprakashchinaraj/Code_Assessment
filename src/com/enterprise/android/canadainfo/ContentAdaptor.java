@@ -11,23 +11,25 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.enterprise.android.canadainfo.ContentsActivity.ContentItems;
+import com.cognizant.android.canadainfo.model.ContentItems;
 import com.enterprise.android.canadainfo.LazyImageLoader.ImageCallback;
 
+/**
+ * custom adaptor to display the contents in a listview.
+ */
 class ContentAdaptor extends ArrayAdapter<ContentItems> {
 
-	private LazyImageLoader asyncImageLoader;
+	private LazyImageLoader mAsyncImageLoader;
 
 	public ContentAdaptor(Context context, ArrayList<ContentItems> listitems) {
 		super(context, 0, listitems);
 
-		asyncImageLoader = new LazyImageLoader();
+		mAsyncImageLoader = new LazyImageLoader();
 
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
 
 		final ContentItems item = getItem(position);
 
@@ -58,35 +60,24 @@ class ContentAdaptor extends ArrayAdapter<ContentItems> {
 		viewHolder.icon.setImageBitmap(null);
 
 		// Dynamicallay finding textview height
-		/*viewHolder.desc
-				.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-
-					String url = item.imagHrf;
-
-					@Override
-					public void onLayoutChange(View v, int left, int top,
-							int right, int bottom, int oldLeft, int oldTop,
-							int oldRight, int oldBottom) {
-						// TODO Auto-generated method stub
-						// getting "null" as value
-						if (url != null && !url.equals("null")) {
-							Bitmap cachedImage = asyncImageLoader.loadDrawable(
-									url, new ImageCallback() {
-										public void imageLoaded(
-												Bitmap imageDrawable,
-												String imageUrl) {
-											viewHolder.icon
-													.setImageBitmap(imageDrawable);
-										}
-									}, bottom);
-							viewHolder.icon.setImageBitmap(cachedImage);
-						}
-					}
-				});
-*/
+		/*
+		 * viewHolder.desc .addOnLayoutChangeListener(new
+		 * View.OnLayoutChangeListener() {
+		 * 
+		 * String url = item.imagHrf;
+		 * 
+		 * @Override public void onLayoutChange(View v, int left, int top, int
+		 * right, int bottom, int oldLeft, int oldTop, int oldRight, int
+		 * oldBottom) { // TODO Auto-generated method stub // getting "null" as
+		 * value if (url != null && !url.equals("null")) { Bitmap cachedImage =
+		 * asyncImageLoader.loadDrawable( url, new ImageCallback() { public void
+		 * imageLoaded( Bitmap imageDrawable, String imageUrl) { viewHolder.icon
+		 * .setImageBitmap(imageDrawable); } }, bottom);
+		 * viewHolder.icon.setImageBitmap(cachedImage); } } });
+		 */
 		String url = item.imagHrf;
 		if (url != null && !url.equals("null")) {
-			Bitmap cachedImage = asyncImageLoader.loadDrawable(url,
+			Bitmap cachedImage = mAsyncImageLoader.loadDrawable(url,
 					new ImageCallback() {
 						public void imageLoaded(Bitmap imageDrawable,
 								String imageUrl) {

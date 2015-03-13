@@ -13,22 +13,26 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+/**
+ * This class will help to download images from network asynchronously by using
+ * a background thread. once the download is over the same will intimate UI
+ * thread by using handler
+ */
 public class LazyImageLoader {
 	/** caching images to smooth scrolling **/
-	private HashMap<String, SoftReference<Bitmap>> iconCache;
+	private HashMap<String, SoftReference<Bitmap>> mIconCache;
 
 	public LazyImageLoader() {
-		iconCache = new HashMap<String, SoftReference<Bitmap>>();
+		mIconCache = new HashMap<String, SoftReference<Bitmap>>();
 	}
 
 	public Bitmap loadDrawable(final String imageUrl,
 			final ImageCallback imageCallback, final int height) {
-		if (iconCache.containsKey(imageUrl)) {
-			SoftReference<Bitmap> softReference = iconCache.get(imageUrl);
+		if (mIconCache.containsKey(imageUrl)) {
+			SoftReference<Bitmap> softReference = mIconCache.get(imageUrl);
 			Bitmap drawable = softReference.get();
 			if (drawable != null) {
 
-			
 				return drawable;
 			}
 		}
@@ -47,8 +51,8 @@ public class LazyImageLoader {
 				Bitmap drawable = loadImageFromUrl(imageUrl, height);
 
 				if (drawable != null) {
-					iconCache
-							.put(imageUrl, new SoftReference<Bitmap>(drawable));
+					mIconCache.put(imageUrl,
+							new SoftReference<Bitmap>(drawable));
 				}
 
 				Message message = handler.obtainMessage(0, drawable);
